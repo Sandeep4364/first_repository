@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="b">THIS IS EVENT LISTENER</h1>
+    <button id="click-me">click here</button>
+    <div id="a" style="width: 100px; height: 200px; background-color: lightblue;">
+
+    </div>
+    <script>
+
+        document.getElementById("click-me").addEventListener("dblclick", function () {
+            alert("You clicked me!");
+        });
+
+        document.getElementById("a").addEventListener("mouseenter", function () {
+            this.style.backgroundColor = "lightgreen";
+        });
+
+        document.getElementById("a").addEventListener("mouseleave", function () {
+            this.style.backgroundColor = "lightblue";
+        });
+        document.getElementById("b").addEventListener("mouseenter", function () {
+            this.style.backgroundColor = "lightgreen";
+        });
+        document.getElementById("b").addEventListener("mouseleave", function () {
+            this.style.backgroundColor = "lightblue";
+        });
+
+        document.getElementById("click-me").addEventListener("click", function () {
+            function getRandomColor() {
+                const letters = '0123456789ABCDEF';
+                let color = '#';
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+            document.getElementById("a").style.backgroundColor = getRandomColor();
+        });
+    </script>
+</body>
+
+</html>
