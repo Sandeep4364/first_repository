@@ -79,12 +79,83 @@
 //                     }).catch((error) => {                
 //                         console.log("this is catch",error);
 //                         });
-function getData(dataid){
-    return new Promise((resolve,reject)=>{
-        setTimeout(() =>
-            { console.log("featching data fot id",dataid);
-                resolve("success")
-                },2000);
-                });
-        }
-let myPromise = getData(1).then((data) => { console.log("this is then",data);}).catch((error) => { console.log("this is catch",error);}); 
+// function getData(dataid){
+//     return new Promise((resolve,reject)=>{
+//         setTimeout(() =>
+//             { console.log("featching data fot id",dataid);
+//                 resolve("success")
+//                 },2000);
+//                 });
+//         }
+// let myPromise = getData(1).then((data) => { console.log("this is then",data);}).catch((error) => { console.log("this is catch",error);}); 
+// let getpromise() => {
+//     return new Promise((resolve,reject)=> {
+//         console .log("this is promise");
+//         resolve("data is here");
+//         });
+        
+
+// }
+// let result=getpromise();
+//         result.then((data) => {
+//              console.log("this is then",data);
+//             }).catch((error) => { 
+//                 console.log("this is catch",error);
+//             }); 
+// function f1() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             console.log("f1");
+//             resolve("success from f1");
+//         }, 2000);
+//     });
+// }
+
+// function f2() {
+//     return new Promise((resolve) => {
+//         setTimeout(() => {
+//             console.log("f2");
+//             resolve("success from f2");
+//         }, 2000);
+//     });
+// }
+
+// console.log("fetching");
+// f1().then((data) => {
+//     console.log("this is then", data);
+//     console.log("dui");
+//     return f2();
+// }).then((data) => {
+//     console.log("this is then", data);
+// });
+function getData(id) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      console.log("fetching data for id", id);
+      resolve({ status: "success", id });
+    }, 2000);
+  });
+}
+
+async function fetchData() {
+  try {
+    let data1 = await getData(1);
+    console.log("data1", data1);
+    let data2 = await getData(2);
+    console.log("data2", data2);
+  } catch (error) {
+    console.log("error", error);
+  }
+}
+
+async function getnextData() {
+  console.log("getnextData step 1");
+  await getData(1);
+  console.log("getnextData step 2");
+  await getData(2);
+  console.log("getnextData step 3");
+  await getData(3);
+}
+
+fetchData();
+getnextData();
