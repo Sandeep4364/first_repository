@@ -104,10 +104,29 @@
     </div>
   </section>
 
+  <section class="image-slider">
+    <div class="slider-track">
+      <img src="banner1.jpg" alt="Banner 1" />
+      <img src="zeel.jpg" alt="Zeel Ad" />
+      <img src="hm.jpg" alt="H&M Ad" />
+      <!-- Add more images as needed -->
+    </div>
+  </section>
+
   <footer>
     <p>&copy; 2025 AJIO Clone. All rights reserved.</p>
   </footer>
 
   <script src="ajio.js"></script>
+  <script>
+    // Loop marquee direction every 3 seconds
+    const marquee = document.getElementById('ajio-marquee');
+    let directions = ['left', 'right', 'up', 'down'];
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % directions.length;
+      marquee.setAttribute('direction', directions[idx]);
+    }, 3000);
+  </script>
 </body>
 </html>
