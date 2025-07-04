@@ -15,8 +15,8 @@
           <a href="#">Men</a>
           <div class="submenu">
             <ul>
-              <li><a href="#">T-Shirts</a></li>
-              <li><a href="#">Shirts</a></li>
+              <li><a href="wwww.google.com">T-Shirts</a></li>
+              <li><a href="www.instagram.com">Shirts</a></li>
               <li><a href="#">Jeans</a></li>
             </ul>
           </div>
@@ -64,10 +64,10 @@
       </ul>
     </nav>
     <div class="right-nav">
-      <input type="text" placeholder="Search AJIO" />
-      <span>❤️</span>
-      <span>🛍️</span>
-    </div>
+  <input type="text" placeholder="Search AJIO" />
+  <span>❤️</span>
+  <a href="add_to_cart.html"><span>🛍️</span></a>
+</div>
   </header>
 
   <section class="banner">
@@ -106,10 +106,18 @@
 
   <section class="image-slider">
     <div class="slider-track">
-      <img src="banner1.jpg" alt="Banner 1" />
-      <img src="zeel.jpg" alt="Zeel Ad" />
-      <img src="hm.jpg" alt="H&M Ad" />
-      <!-- Add more images as needed -->
+      <div class="image-container">
+        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/d7e9bf105877547.5f83448e3ed42.png" alt="Banner 1" />
+        <button onclick="location.href='add_to_cart.html?name=Banner+1&price=49.99&discount=10%25+off&coupons=SAVE10&details=Main+banner+image'">Add to Cart</button>
+      </div>
+      <div class="image-container">
+        <img src="https://th.bing.com/th/id/OIP.rc3Da2G2JFQZOpl8u6MesgHaCe?w=314&h=116&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Zeel Ad" />
+        <button onclick="location.href='add_to_cart.html?name=Zeel+Ad&price=79.99&discount=20%25+off&coupons=SAVE20&details=Rain+ready+product'">Add to Cart</button>
+      </div>
+      <div class="image-container">
+        <img src="https://browntape.com/wp-content/uploads/2021/06/AJIO.com-Interface-1024x508.png" alt="H&M Ad" />
+        <button onclick="location.href='add_to_cart.html?name=H%26M+Ad&price=59.99&discount=15%25+off&coupons=SAVE15&details=Fashion+sale+item'">Add to Cart</button>
+      </div>
     </div>
   </section>
 

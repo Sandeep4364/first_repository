@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shopping Cart - AJIO Clone</title>
+  <link rel="stylesheet" href="ajio.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f8f9fa;
+    }
+    header {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+    .cart-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    .product-details, .order-summary {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 400px;
+      flex: 1;
+    }
+    .product-details h2 {
+      margin-bottom: 10px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      box-sizing: border-box;
+    }
+    .buy-button, .apply-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      margin-top: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .buy-button:hover, .apply-button:hover {
+      background-color: #0056b3;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      color: #007bff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>My Bag</header>
+  <div class="cart-container">
+    <div class="product-details">
+      <h2 id="product-name">Product Name:</h2>
+      <p id="price">Price:</p>
+      <p id="discount">Discount:</p>
+      <p id="details">Additional Details:</p>
+
+      <label for="quantity">Quantity:</label>
+      <input type="number" id="quantity" value="1" />
+
+      <label for="coupon">Coupon Code:</label>
+      <input type="text" id="coupon" />
+      <button class="apply-button" onclick="applyCoupon()">Apply</button>
+
+      <button class="buy-button" onclick="location.href='payment_options.html'">PROCEED TO SHIPPING</button>
+    </div>
+
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      <p id="bag-total">Bag Total: ₹0</p>
+      <p id="delivery-fee">Delivery Fee: ₹99</p>
+      <p id="order-total">Order Total: ₹0</p>
+    </div>
+  </div>
+
+  <a href="ajio1.html" class="back-link">Continue Shopping</a>
+
+  <script>
+    function getQueryParams() {
+      const params = {};
+      window.location.search.substring(1).split("&").forEach(function(pair) {
+        const [key, value] = pair.split("=");
+        params[key] = decodeURIComponent(value.replace(/\+/g, " "));
+      });
+      return params;
+    }
+
+    function applyCoupon() {
+      const discount = document.getElementById("discount");
+      const couponValue = document.getElementById("coupon").value.trim();
+      if (couponValue === "SAVE50") {
+        discount.textContent = "Discount: ₹50";
+        updateTotals(-50);
+      } else {
+        discount.textContent = "Discount: ₹0 (Invalid Coupon)";
+        updateTotals(0);
+      }
+    }
+
+    function updateTotals(discountValue) {
+      const priceText = document.getElementById("price").textContent;
+      const price = parseInt(priceText.replace(/[^\d]/g, "")) || 0;
+      const deliveryFee = 99;
+      const finalTotal = price + deliveryFee + discountValue;
+      document.getElementById("bag-total").textContent = `Bag Total: ₹${price}`;
+      document.getElementById("order-total").textContent = `Order Total: ₹${finalTotal}`;
+    }
+
+    window.onload = function() {
+      const params = getQueryParams();
+      if (params.name) document.getElementById("product-name").textContent = "Product Name: " + params.name;
+      if (params.price) {
+        document.getElementById("price").textContent = "Price: ₹" + params.price;
+        updateTotals(0);
+      }
+      if (params.details) document.getElementById("details").textContent = "Additional Details: " + params.details;
+    };
+  </script>
+</body>
+</html>
