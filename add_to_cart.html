@@ -79,6 +79,9 @@
       <input type="text" id="coupon" />
       <button class="apply-button" onclick="applyCoupon()">Apply</button>
 
+      <label for="discountPercent">Discount Percentage (%):</label>
+      <input type="number" id="discountPercent" min="0" max="100" value="0" />
+
       <button class="buy-button" onclick="location.href='payment_options.html'">PROCEED TO SHIPPING</button>
     </div>
 
@@ -97,40 +100,56 @@
       const params = {};
       window.location.search.substring(1).split("&").forEach(function(pair) {
         const [key, value] = pair.split("=");
-        params[key] = decodeURIComponent(value.replace(/\+/g, " "));
+        params[key] = decodeURIComponent((value || "").replace(/\+/g, " "));
       });
       return params;
     }
 
+    // Store discounts globally
+    let couponDiscount = 0;
+    let percentDiscount = 0;
+
     function applyCoupon() {
-      const discount = document.getElementById("discount");
       const couponValue = document.getElementById("coupon").value.trim();
       if (couponValue === "SAVE50") {
-        discount.textContent = "Discount: ₹50";
-        updateTotals(-50);
+        couponDiscount = -50;
       } else {
-        discount.textContent = "Discount: ₹0 (Invalid Coupon)";
-        updateTotals(0);
+        couponDiscount = 0;
       }
+      updateTotals();
     }
 
-    function updateTotals(discountValue) {
+    function updateTotals() {
       const priceText = document.getElementById("price").textContent;
       const price = parseInt(priceText.replace(/[^\d]/g, "")) || 0;
+      const quantity = parseInt(document.getElementById("quantity").value) || 1;
       const deliveryFee = 99;
-      const finalTotal = price + deliveryFee + discountValue;
-      document.getElementById("bag-total").textContent = `Bag Total: ₹${price}`;
+      const percent = parseInt(document.getElementById("discountPercent").value) || 0;
+
+      // Calculate total price for quantity
+      const totalPrice = price * quantity;
+      percentDiscount = Math.round((totalPrice * percent) / 100);
+
+      const totalDiscount = couponDiscount - percentDiscount;
+      const finalTotal = totalPrice + deliveryFee + totalDiscount;
+
+      document.getElementById("bag-total").textContent = `Bag Total: ₹${totalPrice}`;
       document.getElementById("order-total").textContent = `Order Total: ₹${finalTotal}`;
+      document.getElementById("discount").textContent = `Discount: ₹${-totalDiscount}`;
     }
+
+    // Update totals when quantity or discount percent changes
+    document.getElementById("discountPercent").addEventListener("input", updateTotals);
+    document.getElementById("quantity").addEventListener("input", updateTotals);
 
     window.onload = function() {
       const params = getQueryParams();
       if (params.name) document.getElementById("product-name").textContent = "Product Name: " + params.name;
       if (params.price) {
         document.getElementById("price").textContent = "Price: ₹" + params.price;
-        updateTotals(0);
       }
       if (params.details) document.getElementById("details").textContent = "Additional Details: " + params.details;
+      updateTotals();
     };
   </script>
 </body>
